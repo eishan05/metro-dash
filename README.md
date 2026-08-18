@@ -20,7 +20,8 @@ npm run dev -- --host  # also serve on your LAN, to test on a phone
 ## Build
 
 ```bash
-npm run build     # static site in dist/
+npm run validate  # prove every obstacle layout is survivable
+npm run build     # validates, then writes a static site to dist/
 npm run preview   # serve the built site locally
 ```
 
@@ -107,8 +108,13 @@ search over (position, lane, vertical state) for every layout at load time,
 modelling jump arcs, roll windows, lane-change cooldowns and roof landings. A
 layout with no survivable line is dropped rather than shipped. Because jump
 and roll distances are speed-invariant, that one static check holds for the
-entire run. Add a pattern and it is validated automatically — check the
-console for a warning if one gets rejected.
+entire run.
+
+`npm run validate` asserts this from the command line — it checks every shipped
+layout plus a set of controls (walls across all three lanes, a wall that
+outlasts the jump arc) that *must* be rejected. It runs before every build and
+in CI, so a pattern edit that creates an unwinnable wall fails the deploy
+rather than reaching players.
 
 ## Tuning
 

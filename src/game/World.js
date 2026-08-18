@@ -97,6 +97,7 @@ export class World {
     this.qualityMode = 'auto';
     this.shadowsAllowed = true;
     this._frameSamples = [];
+    this._sampleMs = 0;
     this._sinceChange = 0;
     this.applyQuality(0);
 
@@ -130,6 +131,7 @@ export class World {
     this.renderer.shadowMap.needsUpdate = true;
     this._sinceChange = 0;
     this._frameSamples.length = 0;
+    this._sampleMs = 0;
 
     if (this.onQualityChange) this.onQualityChange(level);
   }
@@ -157,15 +159,25 @@ export class World {
   sampleFrame(dtMs) {
     if (this.qualityMode !== 'auto') return;
     this._sinceChange += dtMs;
-    if (this._sinceChange < 1500) return;      // ignore the warm-up after a change
+    if (this._sinceChange < 1200) return;      // ignore the warm-up after a change
 
     this._frameSamples.push(dtMs);
-    if (this._frameSamples.length < QUALITY.sampleFrames) return;
+    this._sampleMs += dtMs;
+
+    // Decide on a frame count OR a wall-clock window, whichever lands first.
+    // A frame-count-only rule punishes exactly the devices that need help most:
+    // at 6 fps, waiting for 60 frames means limping along for ten seconds
+    // before stepping down.
+    const enoughFrames = this._frameSamples.length >= QUALITY.sampleFrames;
+    const enoughTime = this._sampleMs >= QUALITY.sampleWindowMs
+      && this._frameSamples.length >= QUALITY.minSamples;
+    if (!enoughFrames && !enoughTime) return;
 
     let total = 0;
     for (const s of this._frameSamples) total += s;
     const avgFps = 1000 / (total / this._frameSamples.length);
     this._frameSamples.length = 0;
+    this._sampleMs = 0;
 
     if (avgFps < QUALITY.targetFps && this.qualityIndex < QUALITY.levels.length - 1) {
       this.applyQuality(this.qualityIndex + 1);

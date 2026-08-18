@@ -4,8 +4,7 @@ import {
 } from '../config.js';
 import { createObstacle } from './models/obstacles.js';
 import { createCoinInstancedMesh, createPickup } from './models/coin.js';
-import { pickPattern } from './Patterns.js';
-import { JUMP_APEX, JUMP_SPAN } from './Patterns.js';
+import { pickPattern, JUMP_APEX, JUMP_SPAN } from './Patterns.js';
 
 const COIN_CAPACITY = 240;
 const PICKUP_TYPES = Object.keys(POWERUPS).filter((k) => POWERUPS[k].duration !== undefined);

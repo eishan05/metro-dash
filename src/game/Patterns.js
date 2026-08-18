@@ -381,8 +381,6 @@ if (REJECTED.length && typeof console !== 'undefined') {
   console.warn('[Patterns] dropped unsolvable layouts:', REJECTED.join(', '));
 }
 
-export const PATTERN_ISSUES = REJECTED;
-
 /**
  * Weighted pick from the patterns unlocked at this difficulty, with a bias
  * toward the harder end of the unlocked set so the run keeps escalating.

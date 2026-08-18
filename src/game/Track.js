@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { TRACK, PALETTE } from '../config.js';
+import { TRACK } from '../config.js';
 import { createTrackSegment, createBuildingField, createTunnel } from './models/scenery.js';
 
 const BUILDING_COUNT = 64;

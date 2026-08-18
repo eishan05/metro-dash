@@ -147,8 +147,3 @@ export function createObstacle(type) {
   instance.userData.type = type;
   return instance;
 }
-
-/** Physical description used by collision and by the pattern validator. */
-export function obstacleSpec(type) {
-  return OBSTACLES[type];
-}

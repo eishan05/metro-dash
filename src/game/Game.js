@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {
-  SPEED, SCORE, COINS, POWERUPS, PHYSICS_STEP, MAX_FRAME_DT, PLAYER, SPAWN,
+  SPEED, SCORE, COINS, POWERUPS, PHYSICS_STEP, MAX_FRAME_DT, PLAYER,
 } from '../config.js';
 import { World } from './World.js';
 import { Track } from './Track.js';

@@ -152,7 +152,9 @@ export const PALETTE = {
 
 export const QUALITY = {
   targetFps: 55,
-  sampleFrames: 90,       // frames averaged before considering a quality step
+  sampleFrames: 60,       // frames averaged before considering a quality step
+  sampleWindowMs: 2000,   // ...or this much wall time, whichever comes first
+  minSamples: 8,          // never judge on a handful of frames
   levels: [
     { name: 'high',   pixelRatio: 2.0, shadows: true,  shadowMap: 2048, scenery: 1.0 },
     { name: 'medium', pixelRatio: 1.5, shadows: true,  shadowMap: 1024, scenery: 0.7 },
