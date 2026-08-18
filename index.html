@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#8fd3f4" />
+  <meta name="description" content="Metro Dash - a free 3D endless runner you can play instantly in your browser. No login, no download." />
+  <title>Metro Dash</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127950;</text></svg>" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div id="ui">
+    <!-- In-run HUD -------------------------------------------------------->
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-left">
+          <div class="stat">
+            <span class="stat-label">Score</span>
+            <span class="stat-value" id="hud-score">0</span>
+          </div>
+          <div class="stat stat-coins">
+            <span class="coin-dot"></span>
+            <span class="stat-value" id="hud-coins">0</span>
+          </div>
+          <div class="stat stat-board" id="hud-board">
+            <span class="board-dot"></span>
+            <span class="stat-value" id="hud-board-count">1</span>
+          </div>
+        </div>
+        <div class="hud-right">
+          <div id="hud-multiplier" class="multiplier hidden">2x</div>
+          <button id="btn-pause" class="icon-btn" aria-label="Pause">II</button>
+        </div>
+      </div>
+      <div id="powerup-pills" class="pills"></div>
+      <div id="toast" class="toast"></div>
+    </div>
+
+    <!-- Title ------------------------------------------------------------->
+    <div id="screen-title" class="screen">
+      <div class="panel">
+        <h1 class="logo">METRO<span>DASH</span></h1>
+        <p class="tagline">Dodge the trains. Grab the coins. Don't look back.</p>
+        <button id="btn-play" class="btn btn-primary">PLAY</button>
+        <div class="best-row">
+          <div class="best-item"><span>Best</span><strong id="title-best">0</strong></div>
+          <div class="best-item"><span>Coins</span><strong id="title-coins">0</strong></div>
+        </div>
+        <button id="btn-settings" class="btn btn-ghost">Settings</button>
+        <div class="controls-hint">
+          <div class="hint-row"><kbd>&larr;</kbd><kbd>&rarr;</kbd><span>switch lane</span></div>
+          <div class="hint-row"><kbd>&uarr;</kbd><span>jump</span><kbd>&darr;</kbd><span>roll</span></div>
+          <div class="hint-row"><kbd>Space</kbd><span>jump &middot; double-tap for hoverboard</span></div>
+          <div class="hint-row touch-only"><span>Swipe to move &middot; double-tap for hoverboard</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause -------------------------------------------------------------->
+    <div id="screen-pause" class="screen hidden">
+      <div class="panel">
+        <h2>Paused</h2>
+        <button id="btn-resume" class="btn btn-primary">Resume</button>
+        <button id="btn-restart-pause" class="btn">Restart</button>
+        <button id="btn-quit" class="btn btn-ghost">Main menu</button>
+      </div>
+    </div>
+
+    <!-- Game over ---------------------------------------------------------->
+    <div id="screen-gameover" class="screen hidden">
+      <div class="panel">
+        <h2 id="gameover-title">Wiped Out</h2>
+        <div class="score-final" id="final-score">0</div>
+        <div class="final-rows">
+          <div class="final-row"><span>Best</span><strong id="final-best">0</strong></div>
+          <div class="final-row"><span>Coins this run</span><strong id="final-coins">0</strong></div>
+          <div class="final-row"><span>Distance</span><strong id="final-distance">0 m</strong></div>
+        </div>
+        <button id="btn-retry" class="btn btn-primary">Run again</button>
+        <button id="btn-menu" class="btn btn-ghost">Main menu</button>
+      </div>
+    </div>
+
+    <!-- Settings ----------------------------------------------------------->
+    <div id="screen-settings" class="screen hidden">
+      <div class="panel">
+        <h2>Settings</h2>
+        <label class="setting">
+          <span>Sound</span>
+          <button id="btn-mute" class="toggle" data-on="true">On</button>
+        </label>
+        <label class="setting">
+          <span>Music</span>
+          <button id="btn-music" class="toggle" data-on="true">On</button>
+        </label>
+        <label class="setting">
+          <span>Quality</span>
+          <select id="sel-quality">
+            <option value="auto">Auto</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </label>
+        <label class="setting">
+          <span>Shadows</span>
+          <button id="btn-shadows" class="toggle" data-on="true">On</button>
+        </label>
+        <button id="btn-reset-progress" class="btn btn-ghost btn-danger">Reset progress</button>
+        <button id="btn-settings-back" class="btn btn-primary">Back</button>
+      </div>
+    </div>
+
+    <!-- Countdown ---------------------------------------------------------->
+    <div id="countdown" class="countdown hidden"></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
