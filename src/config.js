@@ -121,7 +121,9 @@ export const SPAWN = {
   maxGapUnits: 30,        // gap between patterns at the start of a run
   // Difficulty blends from easy patterns to hard ones over this distance.
   difficultyDistance: 1600,
-  safeStartDistance: 60,  // no obstacles for the first stretch of a run
+  // Clear runway before the FIRST obstacle reaches the player - roughly four
+  // seconds at the opening speed, on top of the 3-2-1 countdown.
+  safeStartDistance: 52,
 };
 
 export const CAMERA = {

@@ -54,8 +54,29 @@ export class Spawner {
     for (const c of this.coins) c.active = false;
     this.collision.clear();
     this.distance = 0;
-    this._spawnCursor = TRACK.spawnZ - SPAWN.safeStartDistance;
+
+    // Start the cursor just ahead of the player and fill the whole visible
+    // track immediately. Starting it out at the far spawn plane instead meant
+    // the first obstacle was placed 240 units away AND only after 60 units of
+    // travel - about 18 seconds of empty track at the top of every run.
+    this._spawnCursor = -SPAWN.safeStartDistance;
+    this._fillAhead(0);
     this._syncCoins();
+  }
+
+  /**
+   * Lays out patterns from the spawn cursor until the track is stocked out to
+   * the spawn plane. Used both to prefill a new run and to top up during one.
+   */
+  _fillAhead(difficulty) {
+    while (this._spawnCursor > TRACK.spawnZ) {
+      const gap = SPAWN.maxGapUnits - (SPAWN.maxGapUnits - SPAWN.minGapUnits) * difficulty;
+      const patternStart = this._spawnCursor;
+      const length = this._spawnPattern(patternStart, difficulty);
+      const nextStart = patternStart - length - gap;
+      this._spawnFiller(patternStart - length - 2, nextStart + 2);
+      this._spawnCursor = nextStart;
+    }
   }
 
   // --- pooling --------------------------------------------------------------
@@ -270,14 +291,7 @@ export class Spawner {
 
     // Keep the world ahead of the player stocked.
     this._spawnCursor += dz;
-    while (this._spawnCursor > TRACK.spawnZ) {
-      const gap = SPAWN.maxGapUnits - (SPAWN.maxGapUnits - SPAWN.minGapUnits) * difficulty;
-      const patternStart = this._spawnCursor;
-      const length = this._spawnPattern(patternStart, difficulty);
-      const nextStart = patternStart - length - gap;
-      this._spawnFiller(patternStart - length - 2, nextStart + 2);
-      this._spawnCursor = nextStart;
-    }
+    this._fillAhead(difficulty);
   }
 
   _touching(obj, player, radius) {
