@@ -1,5 +1,7 @@
 # Metro Dash
 
+### ▶︎ [Play it](https://eishan05.github.io/metro-dash/)
+
 A Subway Surfers–style 3D endless runner that runs entirely in the browser.
 Built with [three.js](https://threejs.org) and Vite. No login, no download, no
 server — open the page and play.
@@ -67,6 +69,12 @@ git push -u origin main
 
 Then in the repository: **Settings → Pages → Source → GitHub Actions**. The
 next push publishes to `https://<you>.github.io/<repo>/`.
+
+This repo is already wired up and deploys to
+<https://eishan05.github.io/metro-dash/> on every push to `main`.
+
+Note that GitHub Pages requires a **public** repository on the free plan; on a
+private repo it fails with a plan error at the `configure-pages` step.
 
 Any other static host works too — drop `dist/` on Netlify, Vercel, itch.io or
 an S3 bucket.
